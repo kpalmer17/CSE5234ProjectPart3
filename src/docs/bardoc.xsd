@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by ﻿Nationwide (Nationwide) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="bardoc">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="bar" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" type="xs:string"/>
+							<xs:element name="type" type="xs:string" minOccurs="0"/>
+							<xs:element name="price" type="xs:positiveInteger"/>
+							<xs:element name="address" type="xs:string"/>
+							<xs:element name="openhour" type="xs:time"/>
+							<xs:element name="closehour" type="xs:time"/>
+							<xs:element name="menu" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"/>
+										<xs:element name="day">
+											<xs:simpleType>
+												<xs:restriction base="xs:positiveInteger">
+													<xs:minInclusive value="1"/>
+													<xs:maxInclusive value="7"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:sequence minOccurs="0">
+											<xs:element name="starttime" type="xs:time"/>
+											<xs:element name="endtime" type="xs:time"/>
+										</xs:sequence>
+										<xs:element name="item" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="name" type="xs:string"/>
+													<xs:element name="itemtype" type="xs:string"/>
+													<xs:element name="itemprice" type="xs:decimal"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="special" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"/>
+										<xs:element name="day">
+											<xs:simpleType>
+												<xs:restriction base="xs:positiveInteger">
+													<xs:minInclusive value="1"/>
+													<xs:maxInclusive value="7"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:sequence minOccurs="0">
+											<xs:element name="starttime" type="xs:time"/>
+											<xs:element name="endtime" type="xs:time"/>
+										</xs:sequence>
+										<xs:element name="item" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="name" type="xs:string"/>
+													<xs:element name="itemtype" type="xs:string"/>
+													<xs:element name="itemprice" type="xs:decimal"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="activity" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"/>
+										<xs:element name="activitytype" type="xs:string"/>
+										<xs:element name="day">
+											<xs:simpleType>
+												<xs:restriction base="xs:positiveInteger">
+													<xs:minInclusive value="1"/>
+													<xs:maxInclusive value="7"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:sequence minOccurs="0">
+											<xs:element name="starttime" type="xs:time"/>
+											<xs:element name="endtime" type="xs:time"/>
+										</xs:sequence>
+										<xs:element name="cost" type="xs:decimal"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="event" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"/>
+										<xs:element name="description" type="xs:string"/>
+										<xs:sequence maxOccurs="unbounded">
+											<xs:element name="date" type="xs:date"/>
+											<xs:sequence minOccurs="0">
+												<xs:element name="starttime" type="xs:time"/>
+												<xs:element name="endtime" type="xs:time"/>
+											</xs:sequence>
+										</xs:sequence>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

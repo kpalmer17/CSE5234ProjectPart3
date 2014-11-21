@@ -1,0 +1,66 @@
+<ManipulationDoc>
+<insert>
+<bar>
+<name>Big Bar</name>
+<type>campus</type>
+<price>1</price>
+<address>1716 N High St, Columbus, OH 43201</address>
+<openhour>18:00:00</openhour>
+<closehour>02:00:00</closehour>
+</bar>
+</insert>
+<insert>
+<event BarID ="3">
+<name>Football Game</name>
+<description>Come watch the OSU vs Indiana game with us</description>
+<date>2014-11-22</date>
+<starttime>12:00:00</starttime>
+<endtime>16:00:00</endtime>
+</event>
+</insert>
+<insert>
+<item SpecialID="1"> <name>Moscow Mule</name> <itemtype>mixeddrink</itemtype> <itemprice>5.00</itemprice></item>
+</insert>
+<insert>
+<item MenuID="1"> <name>Chicken and Waffles</name> <itemtype>food</itemtype> <itemprice>10.00</itemprice></item>
+</insert>
+<update>
+<menu ID="1">
+<name>Big Bad Brunch</name>
+<day>1</day>
+<starttime>10:00:00</starttime>
+<endtime>14:00:00</endtime>
+</menu>
+</update>
+<update>
+<item ID="5"> <name>Bloody Mary</name> <itemtype>mixeddrink</itemtype> <itemprice>4.00</itemprice></item>
+</update>
+<update>
+<event ID="3">
+<name>Mug Night</name>
+<description>Bring in your Mugs and lets watch some Monday Night Football</description>
+<date>2014-11-24</date>
+<starttime>21:00:00</starttime>
+<endtime>24:00:00</endtime>
+</event>
+</update>
+<update>
+<bar ID="3">
+<name>Out-R-Inn</name>
+<type>campus</type>
+<price>1</price>
+<address>20 Frambes Ave, Columbus, OH 43201</address>
+<openhour>13:00:00</openhour>
+<closehour>02:30:00</closehour>
+</bar>
+</update>
+<delete>
+<item ID="3"/>
+</delete>
+<delete>
+<bar ID="2"/>
+</delete>
+<delete>
+<special ID="3"/>
+</delete>
+</ManipulationDoc>
