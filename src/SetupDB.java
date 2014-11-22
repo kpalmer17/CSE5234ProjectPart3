@@ -137,30 +137,7 @@ public class SetupDB {
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Event Table");
-        	//Create BarEvent Table
-        	System.out.println("Creating BarEvents Table");
         	
-        	sql = "CREATE TABLE IF NOT EXISTS BAREVENTS " +
-                    "(barid INTEGER not NULL, " +
-                    " eventid INTEGER not NULL, " + 
-                    " PRIMARY KEY ( barid, eventid ), " + 
-                    " FOREIGN KEY ( barid ) REFERENCES BAR(barid), " +
-       		   	    " FOREIGN KEY ( eventid ) REFERENCES EVENT(eventid))";
-       	 
-        	 stmt.executeUpdate(sql);
-        	 System.out.println("Created BarEvent Table");
-        	//Create UserEvent Table
-        	System.out.println("Creating UserEvents Table");
-        	
-        	sql = "CREATE TABLE IF NOT EXISTS USEREVENTS " +
-                    "(userid INTEGER not NULL, " +
-                    " eventid INTEGER not NULL, " + 
-                    " PRIMARY KEY ( userid, eventid ), " + 
-                    " FOREIGN KEY ( eventid ) REFERENCES EVENT(eventid), " +
-       			    " FOREIGN KEY ( userid ) REFERENCES ACCOUNT(userid))";
-       	 
-        	 stmt.executeUpdate(sql);
-        	 System.out.println("Created UserEvents Table");
         	//Create Favorite Table
         	System.out.println("Creating Favorites Table");
         	
