@@ -52,7 +52,7 @@ public class ActivityGateway {
 		int activityID = res.getInt("ACTIVITYID");
 		String name = res.getString("NAME");
 		String type = res.getString("TYPE");
-		String day = res.getString("DAY");
+		int day = res.getInt("DAY");
 		String start = res.getString("STARTTIME");
 		String end = res.getString("ENDTIME");
 		double cost = res.getDouble("COST");

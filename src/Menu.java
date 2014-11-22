@@ -3,12 +3,12 @@ public class Menu {
 
 	private int menuid;
 	private String title;
-	private String day;
+	private int day;
 	private String start;
 	private String end;
 	private int barid;
 	
-	public Menu (String title, String day, String start, String end, int barid) {
+	public Menu (String title, int day, String start, String end, int barid) {
 		this.setTitle(title);
 		this.setDay(day);
 		this.setStart(start);
@@ -16,7 +16,7 @@ public class Menu {
 		this.setBarid(barid);
 	}
 	
-	public Menu (int menuid, String title, String day, String start, String end, int barid) {
+	public Menu (int menuid, String title, int day, String start, String end, int barid) {
 		this.setMenuid(menuid);
 		this.setTitle(title);
 		this.setDay(day);
@@ -41,11 +41,11 @@ public class Menu {
 		this.title = title;
 	}
 
-	public String getDay() {
+	public int getDay() {
 		return day;
 	}
 
-	public void setDay(String day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 

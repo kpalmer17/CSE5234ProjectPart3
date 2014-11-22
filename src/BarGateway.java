@@ -25,18 +25,19 @@ public class BarGateway {
 		  }
 	}
 	
-	public void insert (String name, String type, int price, String address, String open, String close) throws Exception{
-		String sql = "INSERT INTO BAR VALUES (" + nextID + ", '" + name + "', '" + type + "', " +price + ", '" + address + "', '" + open + "', '" + close + "')";
+	public void insert (Bar bar) throws Exception{
+		String sql = "INSERT INTO BAR VALUES (" + nextID + ", '" + bar.getName() + "', '" + bar.getType() + "', " +bar.getPrice() + ", '" + bar.getAddress() + "', '" + bar.getOpen() + "', '" + bar.getClose() + "')";
 		stmt.executeUpdate(sql);
+		bar.setBarid(nextID);
 		nextID++;
 	}
 	
-	public void update (int barid, String name, String type, int price, String address, String open, String close) throws Exception{
-		String sql = "UPDATE BAR SET NAME = '" + name + "', TYPE ='" + type + "', PRICE =" +price + ", OPENHOUR ='" +open+ "', CLOSEHOUR ='" +close+"' WHERE BARID ="+barid;
+	public void update (Bar bar) throws Exception{
+		String sql = "UPDATE BAR SET NAME = '" + bar.getName() + "', TYPE ='" + bar.getType() + "', PRICE =" +bar.getPrice() + ", OPENHOUR ='" +bar.getOpen()+ "', CLOSEHOUR ='" +bar.getClose()+"' WHERE BARID ="+bar.getBarid();
 		stmt.executeUpdate(sql);
 	}
 	
-	public void destroy (int barid) throws Exception{
+	public void destroy (Bar bar) throws Exception{
 		//create gateways
 		ActivityGateway activities = new ActivityGateway();
 		EventGateway events = new EventGateway();
@@ -44,49 +45,63 @@ public class BarGateway {
 		SpecialGateway specials = new SpecialGateway();
 		
 		//find activities for this bar
-		int activityitems[] = activities.findForBar(barid);
+		int activityitems[] = activities.findForBar(bar.getBarid());
 		
 		//delete all activities associated with this bar
 		for (int i = 0; i < activityitems.length; i++){
 			//delete the item
-			activities.destroy(activityitems[i]);
+			Activity activity = activities.find(activityitems[i]);
+			activities.destroy(activity);
 		}
 		
 		//find events for this bar
-		int eventitems[] = events.findForBar(barid);
+		int eventitems[] = events.findForBar(bar.getBarid());
 		
 		//delete all events associated with this bar
 		for (int i = 0; i < eventitems.length; i++){
 			//delete the item
-			events.destroy(eventitems[i]);
+			Event event = events.find(eventitems[i]);
+			events.destroy(event);
 		}
 		
 		//find menus for this bar
-		int menuitems[] = menus.findForBar(barid);
+		int menuitems[] = menus.findForBar(bar.getBarid());
 				
 		//delete all menus associated with this bar
 		for (int i = 0; i < menuitems.length; i++){
 			//delete the item
-			menus.destroy(menuitems[i]);
+			
+			Menu menu = menus.find(menuitems[i]);
+			menus.destroy(menu);
 		}
 				
 				
 		//find specials for this bar
-		int specialitems[] = specials.findForBar(barid);
+		int specialitems[] = specials.findForBar(bar.getBarid());
 				
 		//delete all specials associated with this bar
 		for (int i = 0; i < specialitems.length; i++){
 			//delete the item
-			specials.destroy(specialitems[i]);
+			Special special = specials.find(specialitems[i]);
+			specials.destroy(special);
 		}
 				
 		//delete the bar
-		String sql = "DELETE FROM BAR WHERE BARID = " + barid;
+		String sql = "DELETE FROM BAR WHERE BARID = " + bar.getBarid() ;
 		stmt.executeUpdate(sql);
 	}
 	
-	public void find (int barid)
+	public Bar find (int barid) throws SQLException
 	{
+		ResultSet res = stmt.executeQuery("SELECT * FROM BAR WHERE BAR = " + barid);
 		
+		String name = res.getString("NAME");
+		String type = res.getString("TYPE");
+		int price = res.getInt("PRICE");
+		String address = res.getString("ADDRESS");
+		String open = res.getString("OPENHOUR");
+		String close = res.getString("CLOSEHOUR");
+		
+		return new Bar (barid, name, type, price, address, open, close);
 	}
 }

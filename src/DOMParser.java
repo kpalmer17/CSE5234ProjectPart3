@@ -39,9 +39,9 @@ public class DOMParser {
 			
 			   /////////////////////////////////////////////////////////////////////////////////////////////////////
 				
-				String title,day,start,end,description,date,name,type,address,open,close;
+				String title,start,end,description,date,name,type,address,open,close;
 				double cost;
-				int price;
+				int price, day;
 				
 				
 				///////////////////////////////////Array of bars//////////////////////////////////////////////////
@@ -65,7 +65,7 @@ public class DOMParser {
 				Node menu = menuArray[j];
 				NodeList children1 = menu.getChildNodes();
 				  title = children1.item(1).getTextContent();
-				  day = children1.item(3).getTextContent();
+				  day = Integer.parseInt(children1.item(3).getTextContent());
 				  start = children1.item(5).getTextContent();
 				  end = children1.item(7).getTextContent();
 				  menugateway.insert (title,day, start, end, barid);
@@ -91,7 +91,7 @@ public class DOMParser {
 				Node special = SpecialsArray[j];
 				 children = special.getChildNodes();
 				   title = children.item(1).getTextContent();
-				   day = children.item(3).getTextContent();
+				   day = Integer.parseInt(children.item(3).getTextContent());
 				   start = children.item(5).getTextContent();
 				   end = children.item(7).getTextContent();
 				  specialGateway.insert(title, day,start,end,barid);
@@ -118,7 +118,7 @@ public class DOMParser {
 				children = activites.getChildNodes();
 				name = children.item(1).getTextContent();
 				type = children.item(3).getTextContent();
-				day = children.item(5).getTextContent();
+				day = Integer.parseInt(children.item(5).getTextContent());
 				start = children.item(7).getTextContent();
 				end = children.item(9).getTextContent();
 				cost = Double.parseDouble(children.item(11).getTextContent());

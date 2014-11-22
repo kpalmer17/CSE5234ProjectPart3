@@ -4,13 +4,13 @@ public class Activity {
 	private int activityid = -1;
 	private String name;
 	private String type;
-	private String day;
+	private int day;
 	private String start;
 	private String end;
 	private double cost;
 	private int barid;
 	
-	public Activity (String name, String type, String day, String start, String end, double cost, int barid) {
+	public Activity (String name, String type, int day, String start, String end, double cost, int barid) {
 		this.name = name;
 		this.type = type;
 		this.day = day;
@@ -20,7 +20,7 @@ public class Activity {
 		this.barid = barid;
 	}
 	
-	public Activity (int activityid, String name, String type, String day, String start, String end, double cost, int barid) {
+	public Activity (int activityid, String name, String type, int day, String start, String end, double cost, int barid) {
 		this.activityid = activityid;
 		this.name = name;
 		this.type = type;
@@ -48,10 +48,10 @@ public class Activity {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getDay() {
+	public int getDay() {
 		return day;
 	}
-	public void setDay(String day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 	public String getStart() {

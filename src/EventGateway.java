@@ -25,31 +25,41 @@ public class EventGateway {
 		  }
 	}
 	
-	public void insert (String name, String description, String date, String start, String end, int barid) throws Exception {
+	public void insert (Event event) throws Exception {
 		
-		String sql = "INSERT INTO EVENT VALUES (" + nextID + ", '" + name + "', '" + description + "', '" + date + "', '" + start + "', '" + end + "', " + barid + ")";
+		String sql = "INSERT INTO EVENT VALUES (" + nextID + ", '" + event.getName() + "', '" + event.getDescription() + "', '" + event.getDate() + "', '" + event.getStart() + "', '" + event.getEnd() + "', " + event.getBarid() + ")";
 		stmt.executeUpdate(sql);
+		event.setEventid(nextID);
 		nextID++;
 	}
 	
-	public void update (int eventid, String name, String description, String date, String start, String end, int barid) throws Exception{
+	public void update (Event event) throws Exception{
 		
-		String sql = "DELETE FROM EVENT WHERE EVENTID = " + eventid;
+		String sql = "DELETE FROM EVENT WHERE EVENTID = " + event.getEventid();
 		stmt.executeUpdate(sql);
 
-		sql = "INSERT INTO EVENT VALUES (" + eventid + ", '" + name + "', '" + description + "', '" + date + "', '" + start + "', '" + end + "', " + barid + ")";
+		sql = "INSERT INTO EVENT VALUES (" + event.getEventid() + ", '" + event.getName() + "', '" + event.getDescription() + "', '" + event.getDate() + "', '" + event.getStart() + "', '" + event.getEnd() + "', " + event.getBarid() + ")";
 		stmt.executeUpdate(sql);
 	}
 	
-	public void destroy (int eventid) throws Exception{
+	public void destroy (Event event) throws Exception{
 		
-		String sql = "DELETE FROM EVENT WHERE EVENTID = " + eventid;
+		String sql = "DELETE FROM EVENT WHERE EVENTID = " + event.getEventid();
 		stmt.executeUpdate(sql);
 	}
 	
-	public void find (int eventid)
+	public Event find (int eventid) throws SQLException
 	{
+		ResultSet res = stmt.executeQuery("SELECT * FROM EVENT WHERE EVENTID = " + eventid);
 		
+		String name = res.getString("NAME");
+		String desc = res.getString("DESCRIPTION");
+		String date = res.getString("DATE");
+		String start = res.getString("STARTTIME");
+		String end = res.getString("ENDTIME");
+		int barid = res.getInt("BARID");
+		
+		return new Event (eventid, name, desc, date, start, end, barid);
 	}
 	
 	public int[] findForBar (int barid)throws Exception

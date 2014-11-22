@@ -25,39 +25,49 @@ public class MenuGateway {
 		  }
 	}
 	
-	public void insert (String title, String day, String start, String end, int barid) throws Exception{
-		String sql = "INSERT INTO MENU VALUES (" + nextID + ", '" + title + "', '" + day + "', '" + start + "', '" + end + "', "  + barid + ")";
+	public void insert (Menu menu) throws Exception{
+		String sql = "INSERT INTO MENU VALUES (" + nextID + ", '" + menu.getTitle() + "', '" + menu.getDay() + "', '" + menu.getStart() + "', '" + menu.getEnd() + "', "  + menu.getBarid() + ")";
 		stmt.executeUpdate(sql);
+		menu.setMenuid(nextID);
 		nextID++;
 	}
 	
-	public void update (int menuid, String title, String day, String start, String end, int barid) throws Exception {
-		String sql = "UPDATE MENU SET TITLE = '" + title + "', DAY ='" + day + "', STARTTIME ='" + start + "', ENDTIME='" + end + "', BARID="  + barid + " WHERE MENUID = " + menuid;
+	public void update (Menu menu) throws Exception {
+		String sql = "UPDATE MENU SET TITLE = '" + menu.getTitle() + "', DAY ='" + menu.getDay() + "', STARTTIME ='" + menu.getStart() + "', ENDTIME='" + menu.getEnd() + "', BARID="  + menu.getBarid() + " WHERE MENUID = " + menu.getMenuid();
 		stmt.executeUpdate(sql);
 		
 	}
 	
-	public void destroy (int menuid) throws Exception {
+	public void destroy (Menu menu) throws Exception {
 		
 		//create item gateway
 		ItemGateway items = new ItemGateway();
 		
 		//find items associated with this menu
-		int menuitems[] = items.findForMenu(menuid);
+		int menuitems[] = items.findForMenu(menu.getMenuid());
 		
 		//delete all items associated with this menu
 		for (int i = 0; i < menuitems.length; i++){
 			//delete the item
-			items.destroy(menuitems[i]);
+			Item item = items.find(menuitems[i]);
+			items.destroy(item);
 		}
 		//delete the menu
-		String sql = "DELETE FROM MENU WHERE MENUID = " + menuid;
+		String sql = "DELETE FROM MENU WHERE MENUID = " + menu.getMenuid();
 		stmt.executeUpdate(sql);
 	}
 	
-	public void find (int menuid)
+	public Menu find (int menuid) throws SQLException
 	{
+		ResultSet res = stmt.executeQuery("SELECT * FROM MENU WHERE MENU = " + menuid);
 		
+		String title = res.getString("TITLE");
+		int day = res.getInt("DAY");
+		String start = res.getString("STARTTIME");
+		String end = res.getString("ENDTIME");
+		int barid = res.getInt("BARID");
+		
+		return new Menu (menuid, title, day, start, end, barid);
 	}
 	
 	public int[] findForBar (int barid) throws Exception

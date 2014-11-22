@@ -25,29 +25,38 @@ public class RatingGateway {
 		  }
 	}
 	
-	public void insert (int rating, String comment, String date, int userid, int barid) throws Exception {
-		String sql = "INSERT INTO RATING VALUES (" + nextID + ", " + rating + ", '" + comment + "', '" + date + "', " + userid + ", " + barid + ")";
+	public void insert (Rating rating) throws Exception {
+		String sql = "INSERT INTO RATING VALUES (" + nextID + ", " + rating.getRating() + ", '" + rating.getComment() + "', '" + rating.getDate() + "', " + rating.getUserid() + ", " + rating.getBarid() + ")";
 		stmt.executeUpdate(sql);
+		rating.setRatingid(nextID);
 		nextID++;
 	}
 	
-	public void update (int ratingid, int rating, String comment, String date, int userid, int barid) throws Exception {
-		String sql = "DELETE FROM RATING WHERE RATINGID = " + ratingid;
+	public void update (Rating rating) throws Exception {
+		String sql = "DELETE FROM RATING WHERE RATINGID = " + rating.getRatingid();
 		stmt.executeUpdate(sql);
 		
-		sql = "INSERT INTO RATING VALUES (" + ratingid + ", " + rating + ", '" + comment + "', '" + date + "', " + userid + ", " + barid + ")";
+		sql = "INSERT INTO RATING VALUES (" + rating.getRatingid() + ", " + rating.getRating() + ", '" + rating.getComment() + "', '" + rating.getDate() + "', " + rating.getUserid() + ", " + rating.getBarid() + ")";
 		stmt.executeUpdate(sql);
 	}
 	
-	public void destroy (int ratingid) throws Exception{
+	public void destroy (Rating rating) throws Exception{
 		
-		String sql = "DELETE FROM RATING WHERE RATINGID = " + ratingid;
+		String sql = "DELETE FROM RATING WHERE RATINGID = " + rating.getRatingid();
 		stmt.executeUpdate(sql);
 	}
 	
-	public void find (int ratingid)
+	public Rating find (int ratingid) throws SQLException
 	{
+		ResultSet res = stmt.executeQuery("SELECT * FROM RATING WHERE RATING = " + ratingid);
 		
+		int rating = res.getInt("RATING");
+		String comment = res.getString("COMMENT");
+		String date = res.getString("DATE");
+		int userid = res.getInt("USERID");
+		int barid = res.getInt("BARID");
+		
+		return new Rating (ratingid, rating, comment, date, userid, barid);
 	}
 	
 	
