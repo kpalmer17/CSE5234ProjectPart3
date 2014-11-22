@@ -25,49 +25,63 @@ public class ItemGateway {
 		  }
 	}
 	
-	public void insert (String name, String type, double price, int menuid, int specialid ) throws Exception{
+	public void insert (Item item ) throws Exception{
 		
-		if (menuid > 0)
+		if (item.getMenuid() > 0)
 		{
-			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", '" + name + "', '" + type + "', " + price + ", " + menuid + ", " + "null" + ")";
+			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", '" + item.getName() + "', '" + item.getType() + "', " + item.getPrice() + ", " + item.getMenuid() + ", " + "null" + ")";
+			stmt.executeUpdate(sql);
+			item.setItemid(nextID);
+			nextID++;
+		}
+		else
+		{
+			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", '" + item.getName() + "', '" + item.getType() + "', " + item.getPrice() + ", " + "null" + ", " + item.getSpecialid() + ")";
+			stmt.executeUpdate(sql);
+			item.setItemid(nextID);
+			nextID++;
+		}
+	}
+	
+	public void update (Item item) throws Exception {
+		
+		String sql = "DELETE FROM ITEM WHERE ITEMID = " + item.getItemid();
+		stmt.executeUpdate(sql);
+		
+		if (item.getMenuid() > 0)
+		{
+			sql = "INSERT INTO ITEM VALUES (" + item.getItemid() + ", '" + item.getName() + "', '" + item.getType() + "', " + item.getPrice() + ", " + item.getMenuid() + ", " + "null" + ")";
 			stmt.executeUpdate(sql);
 			nextID++;
 		}
 		else
 		{
-			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", '" + name + "', '" + type + "', " + price + ", " + "null" + ", " + specialid + ")";
+			sql = "INSERT INTO ITEM VALUES (" + item.getItemid() + ", '" + item.getName() + "', '" + item.getType() + "', " + item.getPrice() + ", " + "null" + ", " + item.getSpecialid() + ")";
 			stmt.executeUpdate(sql);
 			nextID++;
 		}
 	}
 	
-	public void update (int itemid, String name, String type, double price, int menuid, int specialid) throws Exception {
+	public void destroy (Item item) throws Exception{
 		
-		String sql = "DELETE FROM ITEM WHERE ITEMID = " + itemid;
-		stmt.executeUpdate(sql);
-		
-		if (menuid > 0)
-		{
-			sql = "INSERT INTO ITEM VALUES (" + itemid + ", '" + name + "', '" + type + "', " + price + ", " + menuid + ", " + "null" + ")";
-			stmt.executeUpdate(sql);
-			nextID++;
-		}
-		else
-		{
-			sql = "INSERT INTO ITEM VALUES (" + itemid + ", '" + name + "', '" + type + "', " + price + ", " + "null" + ", " + specialid + ")";
-			stmt.executeUpdate(sql);
-			nextID++;
-		}
-	}
-	
-	public void destroy (int itemid) throws Exception{
-		
-		String sql = "DELETE FROM ITEM WHERE ITEMID = " + itemid;
+		String sql = "DELETE FROM ITEM WHERE ITEMID = " + item.getItemid();
 		stmt.executeUpdate(sql);
 	}
 	
-	public void find (int itemid)
+	public Item find (int itemid) throws SQLException
 	{
+		ResultSet res = stmt.executeQuery("SELECT * FROM ITEM WHERE ITEMID = " + itemid);
+		
+		int itemID = res.getInt("ITEMID");
+		String name = res.getString("NAME");
+		String type = res.getString("TYPE");
+		double price = res.getDouble("PRICE"); 
+		int menuid = res.getInt("MENUID");
+		if (res.wasNull()) menuid = -1;
+		int specialid = res.getInt("SPECIALID");
+		if (res.wasNull()) specialid = -1;
+		
+		return new Item(itemID, name, type, price, menuid, specialid);
 		
 	}
 	

@@ -26,39 +26,49 @@ public class SpecialGateway {
 		  }
 	}
 	
-	public void insert (String title, String day, String start, String end, int barid) throws Exception {
+	public void insert (Special special) throws Exception {
 		
-		String sql = "INSERT INTO SPECIAL VALUES (" + nextID + ", '" + title + "', '" + day + "', '" + start + "', '" + end + "', "  + barid + ")";
+		String sql = "INSERT INTO SPECIAL VALUES (" + nextID + ", '" + special.getTitle() + "', '" + special.getDay() + "', '" + special.getStart() + "', '" + special.getEnd() + "', "  + special.getBarid() + ")";
 		stmt.executeUpdate(sql);
+		special.setSpecialid(nextID);
 		nextID++;
 	}
 	
-	public void update (int specialid, String title, String day, String start, String end, int barid) throws Exception{
-		String sql = "UPDATE SPECIAL SET TITLE = '" + title + "', DAY ='" + day + "', STARTTIME ='" + start + "', ENDTIME='" + end + "', BARID="  + barid + " WHERE SPECIALID = " + specialid;
-		stmt.executeUpdate(sql);
-		
+	public void update (Special special) throws Exception{
+		String sql = "UPDATE SPECIAL SET TITLE = '" + special.getTitle() + "', DAY ='" + special.getDay() + "', STARTTIME ='" + special.getStart() + "', ENDTIME='" + special.getEnd() + "', BARID="  + special.getBarid() + " WHERE SPECIALID = " + special.getSpecialid();
+		stmt.executeUpdate(sql);	
 	}
 	
-	public void destroy (int specialid) throws Exception{
+	public void destroy (Special special) throws Exception{
 		
 		//create item gateway
 		ItemGateway items = new ItemGateway();
 		
 		//find items associated with this menu
-		int specialitems[] = items.findForSpecial(specialid);
+		int specialitems[] = items.findForSpecial(special.getSpecialid());
 		
 		//delete all items associated with this menu
 		for (int i = 0; i < specialitems.length; i++){
 			//delete the item
-			items.destroy(specialitems[i]);
+			Item item = items.find(specialitems[i]);
+			items.destroy(item);
 		}
 		//delete the menu
-		String sql = "DELETE FROM SPECIAL WHERE SPECIALID = " + specialid;
+		String sql = "DELETE FROM SPECIAL WHERE SPECIALID = " + special.getSpecialid();
 		stmt.executeUpdate(sql);
 	}
 	
-	public void find (int specialid)
+	public Special find (int specialid) throws SQLException
 	{
+		ResultSet res = stmt.executeQuery("SELECT * FROM SPECIAL WHERE SPECIALID = " + specialid);
+		
+		String title = res.getString("TITLE");
+		int day = res.getInt("DAY");
+		String start = res.getString("STARTTIME");
+		String end = res.getString("ENDTIME");
+		int barid = res.getInt("BARID");
+		
+		return new Special (specialid, title, day, start, end, barid);
 		
 	}
 	

@@ -3,15 +3,15 @@ public class Special {
 
 	private int specialid;
 	private String title;
-	private String day;
+	private int day;
 	private String start;
 	private String end;
 	private int barid;
 	
-	public Special (String title, String day, String start, String end, int barid) {
+	public Special (String title, int day, String start, String end, int barid) {
 		
 	}
-	public Special (int specialid, String title, String day, String start, String end, int barid) {
+	public Special (int specialid, String title, int day, String start, String end, int barid) {
 		
 	}
 	public int getSpecialid() {
@@ -26,10 +26,10 @@ public class Special {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getDay() {
+	public int getDay() {
 		return day;
 	}
-	public void setDay(String day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 	public String getStart() {
