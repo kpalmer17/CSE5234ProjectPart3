@@ -47,13 +47,13 @@ public class AccountGateway {
 	
 	public Account find (int userid) throws SQLException
 	{
-		ResultSet res = stmt.executeQuery("SELECT * FROM ACCOUNT WHERE ACCOUNTID = " + userid);
+		ResultSet res = stmt.executeQuery("SELECT * FROM ACCOUNT WHERE USERID = " + userid);
+		res.next();
 		
-		int userID = res.getInt("USERID");
 		String username = res.getString("USERNAME");
 		String pass = res.getString("PASSWORD");
 		
-		return new Account(userID, username, pass);
+		return new Account(userid, username, pass);
 		
 		
 	}

@@ -51,7 +51,7 @@ public class EventGateway {
 	public Event find (int eventid) throws SQLException
 	{
 		ResultSet res = stmt.executeQuery("SELECT * FROM EVENT WHERE EVENTID = " + eventid);
-		
+		res.next();
 		String name = res.getString("NAME");
 		String desc = res.getString("DESCRIPTION");
 		String date = res.getString("DATE");

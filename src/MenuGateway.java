@@ -59,8 +59,8 @@ public class MenuGateway {
 	
 	public Menu find (int menuid) throws SQLException
 	{
-		ResultSet res = stmt.executeQuery("SELECT * FROM MENU WHERE MENU = " + menuid);
-		
+		ResultSet res = stmt.executeQuery("SELECT * FROM MENU WHERE MENUID = " + menuid);
+		res.next();
 		String title = res.getString("TITLE");
 		int day = res.getInt("DAY");
 		String start = res.getString("STARTTIME");

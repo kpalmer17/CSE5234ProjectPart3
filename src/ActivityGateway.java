@@ -28,6 +28,7 @@ public class ActivityGateway {
 	public void insert (Activity activity) throws Exception {
 		String sql = "INSERT INTO ACTIVITY VALUES (" + nextID + ", '" + activity.getName() + "', '" + activity.getType() + "', '" + activity.getDay() + "', '" + activity.getStart() + "', '" + activity.getEnd() + "', " + activity.getCost() + ", " + activity.getBarid() + ")";
 		stmt.executeUpdate(sql);
+		activity.setActivityid(nextID);
 		nextID++;
 	}
 	
@@ -48,8 +49,7 @@ public class ActivityGateway {
 	public Activity find (int activityid) throws SQLException
 	{
 		ResultSet res = stmt.executeQuery("SELECT * FROM ACTIVITY WHERE ACTIVITYID = " + activityid);
-		
-		int activityID = res.getInt("ACTIVITYID");
+		res.next();
 		String name = res.getString("NAME");
 		String type = res.getString("TYPE");
 		int day = res.getInt("DAY");
@@ -58,7 +58,7 @@ public class ActivityGateway {
 		double cost = res.getDouble("COST");
 		int barid = res.getInt("BARID");
 		
-		return new Activity(activityID, name, type, day, start, end, cost, barid);
+		return new Activity(activityid, name, type, day, start, end, cost, barid);
 	}
 	
 	public int[] findForBar (int barid) throws Exception
@@ -66,7 +66,7 @@ public class ActivityGateway {
 		int size = 0;
 		
 		//get the size of the array that is about to be passed in
-		ResultSet res = stmt.executeQuery("SELECT COUNT(*) FROM (SELECT ACTIVITYID FROM ACTIVITY WHERE BARD = " + barid + ")");
+		ResultSet res = stmt.executeQuery("SELECT COUNT(*) FROM (SELECT ACTIVITYID FROM ACTIVITY WHERE BARID = " + barid + ")");
 		while (res.next()){
 			size = res.getInt(1);
 		}

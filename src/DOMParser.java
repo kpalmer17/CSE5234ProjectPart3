@@ -82,7 +82,7 @@ public class DOMParser {
 					 type = children.item(3).getTextContent();
 					 double price1 = Double.parseDouble(children.item(5).getTextContent());
 					 int menuid = menugateway.nextID-1;
-					 int specialid  = specialGateway.nextID;
+					 int specialid  = -1;
 					 Item item1 = new Item(name, type, price1, menuid, specialid);
 					 itemgateway.insert(item1);
 					}

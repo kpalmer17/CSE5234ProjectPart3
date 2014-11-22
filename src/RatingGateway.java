@@ -48,8 +48,8 @@ public class RatingGateway {
 	
 	public Rating find (int ratingid) throws SQLException
 	{
-		ResultSet res = stmt.executeQuery("SELECT * FROM RATING WHERE RATING = " + ratingid);
-		
+		ResultSet res = stmt.executeQuery("SELECT * FROM RATING WHERE RATINGID = " + ratingid);
+		res.next();
 		int rating = res.getInt("RATING");
 		String comment = res.getString("COMMENT");
 		String date = res.getString("DATE");

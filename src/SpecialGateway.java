@@ -61,7 +61,7 @@ public class SpecialGateway {
 	public Special find (int specialid) throws SQLException
 	{
 		ResultSet res = stmt.executeQuery("SELECT * FROM SPECIAL WHERE SPECIALID = " + specialid);
-		
+		res.next();
 		String title = res.getString("TITLE");
 		int day = res.getInt("DAY");
 		String start = res.getString("STARTTIME");

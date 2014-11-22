@@ -71,7 +71,7 @@ public class ItemGateway {
 	public Item find (int itemid) throws SQLException
 	{
 		ResultSet res = stmt.executeQuery("SELECT * FROM ITEM WHERE ITEMID = " + itemid);
-		
+		res.next();
 		int itemID = res.getInt("ITEMID");
 		String name = res.getString("NAME");
 		String type = res.getString("TYPE");

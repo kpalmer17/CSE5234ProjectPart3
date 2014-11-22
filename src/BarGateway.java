@@ -93,8 +93,8 @@ public class BarGateway {
 	
 	public Bar find (int barid) throws SQLException
 	{
-		ResultSet res = stmt.executeQuery("SELECT * FROM BAR WHERE BAR = " + barid);
-		
+		ResultSet res = stmt.executeQuery("SELECT * FROM BAR WHERE BARID = " + barid);
+		res.next();
 		String name = res.getString("NAME");
 		String type = res.getString("TYPE");
 		int price = res.getInt("PRICE");
