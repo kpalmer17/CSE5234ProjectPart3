@@ -9,10 +9,19 @@ public class Special {
 	private int barid;
 	
 	public Special (String title, int day, String start, String end, int barid) {
-		
+		this.title = title;
+		this.day = day;
+		this.start = start;
+		this.end = end;
+		this.barid = barid;
 	}
 	public Special (int specialid, String title, int day, String start, String end, int barid) {
-		
+		this.specialid = specialid;
+		this.title = title;
+		this.day = day;
+		this.start = start;
+		this.end = end;
+		this.barid = barid;
 	}
 	public int getSpecialid() {
 		return specialid;

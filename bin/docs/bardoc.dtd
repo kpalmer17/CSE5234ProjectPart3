@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT bardoc (bar+)>
+<!ELEMENT bar (name, type*, price, address, openhour, closehour, menu*, special*, activity*, event*)>
+<!ELEMENT menu (name, day+, (starttime, endtime)?, item+)>
+<!ELEMENT special (name, day+, (starttime, endtime)?, item+)>
+<!ELEMENT activity (name, activitytype, day+, (starttime, endtime)?, cost?)>
+<!ELEMENT event (name, descripton, (date,(starttime, endtime)?)+)>
+<!ELEMENT item (name, itemtype, itemprice)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT hours (#PCDATA)>
+<!ELEMENT day (#PCDATA)>
+<!ELEMENT starttime (#PCDATA)>
+<!ELEMENT endtime (#PCDATA)>
+<!ELEMENT activitytype (#PCDATA)>
+<!ELEMENT cost (#PCDATA)>
+<!ELEMENT itemtype (#PCDATA)>
+<!ELEMENT itemprice (#PCDATA)>
+<!ELEMENT openhour (#PCDATA)>
+<!ELEMENT closehour (#PCDATA)>

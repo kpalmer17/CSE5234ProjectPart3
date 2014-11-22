@@ -19,38 +19,50 @@ public class GatewayTests {
 		
 		
 		//test bar insert
-		barGateway.insert("Luckys", "Campus", 1, "1000 High Street", "12:00", "2:00");
-		barid = barGateway.nextID -1;
+		Bar bar = new Bar("Luckys", "Campus", 1, "1000 High Street", "12:00", "2:00");
+		barGateway.insert(bar);
+		barid = bar.getBarid();
 		
 		//test menu insert
-		menuGateway.insert("Lunch", "Mon-Fri", "12:00", "3:00", barid);
-		menuid = menuGateway.nextID -1;
+		Menu menu = new Menu("Lunch", 1, "12:00", "3:00", barid);
+		menuGateway.insert(menu);
+		menuid = menu.getMenuid();
 		
 		//test insert items into menu
-		itemGateway.insert("burger", "food", 5.00, menuid, -1);
-		itemGateway.insert("fries", "food", 2.00, menuid, -1);
+		Item item1 = new Item("burger", "food", 5.00, menuid, -1);
+		Item item2 = new Item("fries", "food", 2.00, menuid, -1);
+		itemGateway.insert(item1);
+		itemGateway.insert(item2);
 		
 		//test specials insert
-		specialGateway.insert("Happy Hour", "Mon-Fri", "3:00", "6:00", barid);
-		specialid = specialGateway.nextID -1;
+		Special special = new Special("Happy Hour", 6, "3:00", "6:00", barid);
+		specialGateway.insert(special);
+		specialid = special.getSpecialid();
 		
 		//test items into special insert
-		itemGateway.insert("bohdi", "beer", 3.00, -1, specialid);
-		itemGateway.insert("fireball", "liquor", 2.00, -1, specialid);
+		Item item3 = new Item("bohdi", "beer", 3.00, -1, specialid);
+		Item item4 = new Item("fireball", "liquor", 2.00, -1, specialid);
+		itemGateway.insert(item3);
+		itemGateway.insert(item4);
 		
 		//test activity insert
-		activityGateway.insert("pool", "game", "all", "open", "close", 1.00, barid);
-		activityGateway.insert("karaoke", "singing", "wednesday", "8:00", "12:00", 0.00, barid);
+		Activity activity1 = new Activity("pool", "game", 1, "open", "close", 1.00, barid);
+		Activity activity2 = new Activity("karaoke", "singing", 3, "8:00", "12:00", 0.00, barid);
+		activityGateway.insert(activity1);
+		activityGateway.insert(activity2);
 		
 		//test event insert
-		eventGateway.insert("OSU vs Indiana", "Come watch the football game with us!!", "11/1/2015", "7:00", "2:00", barid);
+		Event event = new Event("OSU vs Indiana", "Come watch the football game with us!!", "11/1/2015", "7:00", "2:00", barid);
+		eventGateway.insert(event);
 		
 		//test account insert
-		accountGateway.insert("kpalmer17", "a123456");
-		int userid = accountGateway.nextID -1;
+		Account account = new Account("kpalmer17", "a123456");
+		accountGateway.insert(account);
+		int userid = account.getUserid();
 		
 		//test rating insert
-		ratingGateway.insert(5, "Great food, Great Drinks", "10/30/2014", userid, barid);
+		Rating rating = new Rating(5, "Great food, Great Drinks", "10/30/2014", userid, barid);
+		ratingGateway.insert(rating);
 		
 	}
 

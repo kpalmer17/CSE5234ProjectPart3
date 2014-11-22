@@ -1,0 +1,23 @@
+HTML Pages
+
+Login
+Login fail
+Register
+Register fail
+Register success
+Edit Preferences
+bar
+bar menu
+bar special
+bar event
+
+bar search
+bar search fail
+special/menu search
+special/menu search fail
+activity search
+activity search fail
+
+add rating/review page
+
+

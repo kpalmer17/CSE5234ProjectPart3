@@ -56,7 +56,8 @@ public class DOMParser {
 				 address = children.item(7).getTextContent();
 				 open =children.item(9).getTextContent();
 				 close =children.item(11).getTextContent();
-				bargateway.insert(name, type, price, address, open, close);
+				 Bar bar1 = new Bar(name, type, price, address, open, close);
+				 bargateway.insert(bar1);
 			
 			
 				//////////////////////////////////for menus//////////////////////////////////////////////////////
@@ -68,7 +69,8 @@ public class DOMParser {
 				  day = Integer.parseInt(children1.item(3).getTextContent());
 				  start = children1.item(5).getTextContent();
 				  end = children1.item(7).getTextContent();
-				  menugateway.insert (title,day, start, end, barid);
+				  Menu menu1 = new Menu(title,day, start, end, barid);
+				  menugateway.insert (menu1);
 				  
 				
 					///////////////////////////////for items in menu////////////////////////////////////////////
@@ -81,7 +83,8 @@ public class DOMParser {
 					 double price1 = Double.parseDouble(children.item(5).getTextContent());
 					 int menuid = menugateway.nextID-1;
 					 int specialid  = specialGateway.nextID;
-					 itemgateway.insert(name, type, price1, menuid, specialid);
+					 Item item1 = new Item(name, type, price1, menuid, specialid);
+					 itemgateway.insert(item1);
 					}
 				}
 				
@@ -94,7 +97,8 @@ public class DOMParser {
 				   day = Integer.parseInt(children.item(3).getTextContent());
 				   start = children.item(5).getTextContent();
 				   end = children.item(7).getTextContent();
-				  specialGateway.insert(title, day,start,end,barid);
+				   Special special2 = new Special(title, day,start,end,barid);
+				   specialGateway.insert(special2);
 				  
 					///////////////////////////////for items in specials////////////////////////////////////////////
 				 	Node[] itemArray = NodeElementSelectManyGivenName(SpecialsArray[j], "item");
@@ -107,7 +111,8 @@ public class DOMParser {
 					 double price1 = Double.parseDouble(children.item(5).getTextContent());
 					 int menuid = -1;
 					 int specialid  = specialGateway.nextID-1;
-					 itemgateway.insert(name, type, price1, menuid, specialid);
+					 Item item2 = new Item(name, type, price1, menuid, specialid);
+					 itemgateway.insert(item2);;
 					}	
 				}
 				
@@ -123,7 +128,8 @@ public class DOMParser {
 				end = children.item(9).getTextContent();
 				cost = Double.parseDouble(children.item(11).getTextContent());
 				
-				 activityGateway.insert(name,type,day,start,end,cost,barid);
+				Activity activity = new Activity(name,type,day,start,end,cost,barid);
+				activityGateway.insert(activity);
 				}
 				
 				////////////////////////////////////////////event////////////////////////////////////////////// 
@@ -137,7 +143,8 @@ public class DOMParser {
 				date = children.item(5).getTextContent();
 				start = children.item(7).getTextContent();
 				end = children.item(9).getTextContent();
-				eventgateway.insert(name,description,date,start,end,barid);
+				Event event1 = new Event(name,description,date,start,end,barid);
+				eventgateway.insert(event1);
 			}
 				}//end of bar loop
 			System.out.println("Parsing complete");
