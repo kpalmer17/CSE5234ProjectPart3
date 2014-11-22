@@ -26,7 +26,7 @@ public class ActivityGateway {
 	}
 	
 	public void insert (Activity activity) throws Exception {
-		String sql = "INSERT INTO ACTIVITY VALUES (" + activity.getName() + "', '" + activity.getType() + "', '" + activity.getDay() + "', '" + activity.getStart() + "', '" + activity.getEnd() + "', " + activity.getCost() + ", " + activity.getBarid() + ")";
+		String sql = "INSERT INTO ACTIVITY VALUES (" + nextID + ", '" + activity.getName() + "', '" + activity.getType() + "', '" + activity.getDay() + "', '" + activity.getStart() + "', '" + activity.getEnd() + "', " + activity.getCost() + ", " + activity.getBarid() + ")";
 		stmt.executeUpdate(sql);
 		nextID++;
 	}

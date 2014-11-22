@@ -46,7 +46,7 @@ public class GatewayTests {
 		itemGateway.insert(item4);
 		
 		//test activity insert
-		Activity activity1 = new Activity("pool", "game", 1, "open", "close", 1.00, barid);
+		Activity activity1 = new Activity("pool", "game", 1, "open", "clos", 1.00, barid);
 		Activity activity2 = new Activity("karaoke", "singing", 3, "8:00", "12:00", 0.00, barid);
 		activityGateway.insert(activity1);
 		activityGateway.insert(activity2);

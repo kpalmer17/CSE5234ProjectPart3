@@ -9,10 +9,19 @@ public class Rating {
 	private int barid;
 	
 	public Rating (int rating, String comment, String date, int userid, int barid) {
-		
+		this.rating = rating;
+		this.comment = comment;
+		this.date = date;
+		this.userid = userid;
+		this.barid = barid;
 	}
 	public Rating (int ratingid, int rating, String comment, String date, int userid, int barid) {
-		
+		this.ratingid = ratingid;
+		this.rating = rating;
+		this.comment = comment;
+		this.date = date;
+		this.userid = userid;
+		this.barid = barid;
 	}
 	public int getRatingid() {
 		return ratingid;

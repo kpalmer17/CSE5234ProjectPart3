@@ -1,7 +1,7 @@
 
 public class Menu {
 
-	private int menuid;
+	private int menuid = -1;
 	private String title;
 	private int day;
 	private String start;
