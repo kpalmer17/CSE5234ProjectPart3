@@ -10,7 +10,7 @@ public class ActivityGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -26,7 +26,7 @@ public class ActivityGateway {
 	}
 	
 	public void insert (Activity activity) throws Exception {
-		String sql = "INSERT INTO ACTIVITY VALUES (" + nextID + ", '" + activity.getName() + "', '" + activity.getType() + "', '" + activity.getDay() + "', '" + activity.getStart() + "', '" + activity.getEnd() + "', " + activity.getCost() + ", " + activity.getBarid() + ")";
+		String sql = "INSERT INTO ACTIVITY VALUES (" + nextID + ", '" + activity.getBarid() + "', '" + activity.getCost() + "', '" + activity.getDay() + "', '" + activity.getEnd() + "', '" + activity.getName() + "', " + activity.getStart() + ", " + activity.getType() + ")";
 		stmt.executeUpdate(sql);
 		activity.setActivityid(nextID);
 		nextID++;
@@ -36,7 +36,7 @@ public class ActivityGateway {
 		
 		String sql = "DELETE FROM ACTIVITY WHERE ACTIVITYID = " + activity.getActivityid();
 		stmt.executeUpdate(sql);
-		sql = "INSERT INTO ACTIVITY VALUES (" + activity.getActivityid() + ", '" + activity.getName() + "', '" + activity.getType() + "', '" + activity.getDay() + "', '" + activity.getStart() + "', '" + activity.getEnd() + "', " + activity.getCost() + ", " + activity.getBarid() + ")";
+		sql = "INSERT INTO ACTIVITY VALUES (" + activity.getActivityid() + ", '" + activity.getBarid() + "', '" + activity.getCost() + "', '" + activity.getDay() + "', '" + activity.getEnd() + "', '" + activity.getName() + "', " + activity.getStart() + ", " + activity.getType() + ")";
 		stmt.executeUpdate(sql);
 	}
 	
@@ -53,8 +53,8 @@ public class ActivityGateway {
 		String name = res.getString("NAME");
 		String type = res.getString("TYPE");
 		int day = res.getInt("DAY");
-		String start = res.getString("STARTTIME");
-		String end = res.getString("ENDTIME");
+		String start = res.getString("START");
+		String end = res.getString("END");
 		double cost = res.getDouble("COST");
 		int barid = res.getInt("BARID");
 		

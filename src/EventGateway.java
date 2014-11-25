@@ -10,7 +10,7 @@ public class EventGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -27,7 +27,7 @@ public class EventGateway {
 	
 	public void insert (Event event) throws Exception {
 		
-		String sql = "INSERT INTO EVENT VALUES (" + nextID + ", '" + event.getName() + "', '" + event.getDescription() + "', '" + event.getDate() + "', '" + event.getStart() + "', '" + event.getEnd() + "', " + event.getBarid() + ")";
+		String sql = "INSERT INTO EVENT VALUES (" + nextID + ", '" + event.getBarid() + "', '" + event.getDate() + "', '" + event.getDescription() + "', '" + event.getEnd() + "', '" + event.getName() + "', '" + event.getStart() + "')";
 		stmt.executeUpdate(sql);
 		event.setEventid(nextID);
 		nextID++;
@@ -38,7 +38,7 @@ public class EventGateway {
 		String sql = "DELETE FROM EVENT WHERE EVENTID = " + event.getEventid();
 		stmt.executeUpdate(sql);
 
-		sql = "INSERT INTO EVENT VALUES (" + event.getEventid() + ", '" + event.getName() + "', '" + event.getDescription() + "', '" + event.getDate() + "', '" + event.getStart() + "', '" + event.getEnd() + "', " + event.getBarid() + ")";
+		sql = "INSERT INTO EVENT VALUES (" + event.getEventid() + ", '" + event.getBarid() + "', '" + event.getDate() + "', '" + event.getDescription() + "', '" + event.getEnd() + "', '" + event.getName() + "', " + event.getStart() + ")";
 		stmt.executeUpdate(sql);
 	}
 	
@@ -55,8 +55,8 @@ public class EventGateway {
 		String name = res.getString("NAME");
 		String desc = res.getString("DESCRIPTION");
 		String date = res.getString("DATE");
-		String start = res.getString("STARTTIME");
-		String end = res.getString("ENDTIME");
+		String start = res.getString("START");
+		String end = res.getString("END");
 		int barid = res.getInt("BARID");
 		
 		return new Event (eventid, name, desc, date, start, end, barid);

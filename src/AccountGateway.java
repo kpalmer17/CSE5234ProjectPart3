@@ -10,7 +10,7 @@ public class AccountGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -27,7 +27,7 @@ public class AccountGateway {
 	
 	public void insert (Account account) throws Exception {
 		
-		String sql = "INSERT INTO ACCOUNT VALUES (" + nextID + ", '" + account.getUsername() + "', '" + account.getPassword() + "')";
+		String sql = "INSERT INTO ACCOUNT VALUES (" + nextID + ", '" + account.getPassword() + "', '" + account.getUsername() + "')";
 		account.setUserid(nextID);
 		stmt.executeUpdate(sql);
 		nextID++;
@@ -36,7 +36,7 @@ public class AccountGateway {
 	public void update (Account account) throws Exception {
 		String sql = "DELETE FROM ACCOUNT WHERE USERID = " + account.getUserid();
 		stmt.executeUpdate(sql);
-		sql = "INSERT INTO ACCOUNT VALUES (" + account.getUserid() + ", '" + account.getUsername() + "', '" + account.getPassword() + "')";
+		sql = "INSERT INTO ACCOUNT VALUES (" + account.getUserid() + ", '" + account.getPassword() + "', '" + account.getUsername() + "')";
 		stmt.executeUpdate(sql);
 	}
 	

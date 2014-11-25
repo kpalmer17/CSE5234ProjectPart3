@@ -10,7 +10,7 @@ public class BarGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -26,14 +26,14 @@ public class BarGateway {
 	}
 	
 	public void insert (Bar bar) throws Exception{
-		String sql = "INSERT INTO BAR VALUES (" + nextID + ", '" + bar.getName() + "', '" + bar.getType() + "', " +bar.getPrice() + ", '" + bar.getAddress() + "', '" + bar.getOpen() + "', '" + bar.getClose() + "')";
+		String sql = "INSERT INTO BAR VALUES (" + nextID + ", '" + bar.getAddress() + "', '" + bar.getClose() + "', '" + bar.getName() + "', '" + bar.getOpen() + "', '" + bar.getPrice() + "', '" + bar.getType() + "')";
 		stmt.executeUpdate(sql);
 		bar.setBarid(nextID);
 		nextID++;
 	}
 	
 	public void update (Bar bar) throws Exception{
-		String sql = "UPDATE BAR SET NAME = '" + bar.getName() + "', TYPE ='" + bar.getType() + "', PRICE =" +bar.getPrice() + ", OPENHOUR ='" +bar.getOpen()+ "', CLOSEHOUR ='" +bar.getClose()+"' WHERE BARID ="+bar.getBarid();
+		String sql = "UPDATE BAR SET NAME = '" + bar.getName() + "', TYPE ='" + bar.getType() + "', PRICE =" +bar.getPrice() + ", OPEN ='" +bar.getOpen()+ "', CLOSE ='" +bar.getClose()+"' WHERE BARID ="+bar.getBarid();
 		stmt.executeUpdate(sql);
 	}
 	
@@ -99,8 +99,8 @@ public class BarGateway {
 		String type = res.getString("TYPE");
 		int price = res.getInt("PRICE");
 		String address = res.getString("ADDRESS");
-		String open = res.getString("OPENHOUR");
-		String close = res.getString("CLOSEHOUR");
+		String open = res.getString("OPEN");
+		String close = res.getString("CLOSE");
 		
 		return new Bar (barid, name, type, price, address, open, close);
 	}

@@ -10,7 +10,7 @@ public class MenuGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -26,14 +26,14 @@ public class MenuGateway {
 	}
 	
 	public void insert (Menu menu) throws Exception{
-		String sql = "INSERT INTO MENU VALUES (" + nextID + ", '" + menu.getTitle() + "', '" + menu.getDay() + "', '" + menu.getStart() + "', '" + menu.getEnd() + "', "  + menu.getBarid() + ")";
+		String sql = "INSERT INTO MENU VALUES (" + nextID + ", '" + menu.getBarid() + "', '" + menu.getDay() + "', '" + menu.getEnd() + "', '" + menu.getStart() + "', '"  + menu.getTitle() + "')";
 		stmt.executeUpdate(sql);
 		menu.setMenuid(nextID);
 		nextID++;
 	}
 	
 	public void update (Menu menu) throws Exception {
-		String sql = "UPDATE MENU SET TITLE = '" + menu.getTitle() + "', DAY ='" + menu.getDay() + "', STARTTIME ='" + menu.getStart() + "', ENDTIME='" + menu.getEnd() + "', BARID="  + menu.getBarid() + " WHERE MENUID = " + menu.getMenuid();
+		String sql = "UPDATE MENU SET TITLE = '" + menu.getTitle() + "', DAY ='" + menu.getDay() + "', START ='" + menu.getStart() + "', END='" + menu.getEnd() + "', BARID="  + menu.getBarid() + " WHERE MENUID = " + menu.getMenuid();
 		stmt.executeUpdate(sql);
 		
 	}
@@ -63,8 +63,8 @@ public class MenuGateway {
 		res.next();
 		String title = res.getString("TITLE");
 		int day = res.getInt("DAY");
-		String start = res.getString("STARTTIME");
-		String end = res.getString("ENDTIME");
+		String start = res.getString("START");
+		String end = res.getString("END");
 		int barid = res.getInt("BARID");
 		
 		return new Menu (menuid, title, day, start, end, barid);

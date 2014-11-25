@@ -10,7 +10,7 @@ public class RatingGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -26,7 +26,7 @@ public class RatingGateway {
 	}
 	
 	public void insert (Rating rating) throws Exception {
-		String sql = "INSERT INTO RATING VALUES (" + nextID + ", " + rating.getRating() + ", '" + rating.getComment() + "', '" + rating.getDate() + "', " + rating.getUserid() + ", " + rating.getBarid() + ")";
+		String sql = "INSERT INTO RATING VALUES (" + nextID + ", " + rating.getBarid() + ", '" + rating.getComment() + "', '" + rating.getDate() + "', " + rating.getRating() + ", " + rating.getUserid() + ")";
 		stmt.executeUpdate(sql);
 		rating.setRatingid(nextID);
 		nextID++;
@@ -36,7 +36,7 @@ public class RatingGateway {
 		String sql = "DELETE FROM RATING WHERE RATINGID = " + rating.getRatingid();
 		stmt.executeUpdate(sql);
 		
-		sql = "INSERT INTO RATING VALUES (" + rating.getRatingid() + ", " + rating.getRating() + ", '" + rating.getComment() + "', '" + rating.getDate() + "', " + rating.getUserid() + ", " + rating.getBarid() + ")";
+		sql = "INSERT INTO RATING VALUES (" + rating.getRatingid() + ", " + rating.getBarid() + ", '" + rating.getComment() + "', '" + rating.getDate() + "', " + rating.getRating() + ", " + rating.getUserid() + ")";
 		stmt.executeUpdate(sql);
 	}
 	

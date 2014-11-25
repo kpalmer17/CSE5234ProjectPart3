@@ -10,7 +10,7 @@ public class SpecialGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -28,14 +28,14 @@ public class SpecialGateway {
 	
 	public void insert (Special special) throws Exception {
 		
-		String sql = "INSERT INTO SPECIAL VALUES (" + nextID + ", '" + special.getTitle() + "', '" + special.getDay() + "', '" + special.getStart() + "', '" + special.getEnd() + "', "  + special.getBarid() + ")";
+		String sql = "INSERT INTO SPECIAL VALUES (" + nextID + ", '" + special.getBarid() + "', '" + special.getDay() + "', '" + special.getEnd() + "', '" + special.getStart() + "', '"  + special.getTitle() + "')";
 		stmt.executeUpdate(sql);
 		special.setSpecialid(nextID);
 		nextID++;
 	}
 	
 	public void update (Special special) throws Exception{
-		String sql = "UPDATE SPECIAL SET TITLE = '" + special.getTitle() + "', DAY ='" + special.getDay() + "', STARTTIME ='" + special.getStart() + "', ENDTIME='" + special.getEnd() + "', BARID="  + special.getBarid() + " WHERE SPECIALID = " + special.getSpecialid();
+		String sql = "UPDATE SPECIAL SET TITLE = '" + special.getTitle() + "', DAY ='" + special.getDay() + "', START ='" + special.getStart() + "', END='" + special.getEnd() + "', BARID="  + special.getBarid() + " WHERE SPECIALID = " + special.getSpecialid();
 		stmt.executeUpdate(sql);	
 	}
 	
@@ -64,8 +64,8 @@ public class SpecialGateway {
 		res.next();
 		String title = res.getString("TITLE");
 		int day = res.getInt("DAY");
-		String start = res.getString("STARTTIME");
-		String end = res.getString("ENDTIME");
+		String start = res.getString("START");
+		String end = res.getString("END");
 		int barid = res.getInt("BARID");
 		
 		return new Special (specialid, title, day, start, end, barid);

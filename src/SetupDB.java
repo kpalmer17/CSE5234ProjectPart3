@@ -6,7 +6,7 @@ public class SetupDB {
         try {
         	//connect to h2 DB
         	Class.forName("org.h2.Driver");
-        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
         	System.out.println("Database Connection Successful");
         
         	//Create Tables
@@ -138,18 +138,6 @@ public class SetupDB {
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Event Table");
         	
-        	//Create Favorite Table
-        	System.out.println("Creating Favorites Table");
-        	
-        	sql = "CREATE TABLE IF NOT EXISTS FAVORITES " +
-                     "(userid INTEGER not NULL, " +
-                     " barid INTEGER not NULL, " + 
-                     " PRIMARY KEY ( userid, barid ), " + 
-                     " FOREIGN KEY ( barid ) REFERENCES BAR(barid), " +
-        			 " FOREIGN KEY ( userid ) REFERENCES ACCOUNT(userid))";
-        	 
-        	 stmt.executeUpdate(sql);
-        	 System.out.println("Created Favorites Table");
         	
         } catch (SQLException se){
         	//Handle errors for JDBC
