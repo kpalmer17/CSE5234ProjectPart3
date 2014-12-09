@@ -6,7 +6,7 @@ public class SetupDB {
         try {
         	//connect to h2 DB
         	Class.forName("org.h2.Driver");
-        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
+        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
         	System.out.println("Database Connection Successful");
         
         	//Create Tables
@@ -17,14 +17,14 @@ public class SetupDB {
         	System.out.println("Creating Bar Table");
         	
         	 String sql = "CREATE TABLE IF NOT EXISTS BAR " +
-                     "(barid INTEGER not NULL, " +
-                     " name VARCHAR(255), " + 
-                     " type VARCHAR(255), " +
-                     " price INTEGER, " +
-                     " address VARCHAR(255), " + 
-                     " openhour VARCHAR(255), " +
-                     " closehour VARCHAR(255), " +
-                     " PRIMARY KEY ( barid ))";
+                     "(BARID INTEGER not NULL, " +
+                     " ADDRESS VARCHAR(255), " + 
+                     " CLOSE VARCHAR(255), " +
+                     " NAME VARCHAR(255), " +
+                     " OPEN VARCHAR(255), " + 
+                     " PRICE INTEGER, " +
+                     " TYPE VARCHAR(255), " +
+                     " PRIMARY KEY ( BARID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Bar Table");
@@ -32,14 +32,14 @@ public class SetupDB {
         	System.out.println("Creating Menu Table"); 
         	
         	sql = "CREATE TABLE IF NOT EXISTS MENU " +
-                    "(menuid INTEGER not NULL, " +
-                    " title VARCHAR(255), " + 
-                    " day VARCHAR(255), " + 
-                    " starttime VARCHAR(255), " +
-                    " endtime VARCHAR(255), " +
-                    " barid INTEGER not NULL," +
-                    " FOREIGN KEY ( barid ) REFERENCES BAR(barid)," +
-                    " PRIMARY KEY ( menuid ))";
+                    "(MENUID INTEGER not NULL, " +
+                    " BARID INTEGER not NULL, " + 
+                    " DAY VARCHAR(255), " + 
+                    " END VARCHAR(255), " +
+                    " START VARCHAR(255), " +
+                    " TITLE VARCHAR(255)," +
+                    " FOREIGN KEY ( BARID ) REFERENCES BAR(BARID)," +
+                    " PRIMARY KEY ( MENUID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Menu Table");
@@ -47,14 +47,14 @@ public class SetupDB {
         	System.out.println("Creating Specials Table");
         	
         	sql = "CREATE TABLE IF NOT EXISTS SPECIAL " +
-                     "(specialid INTEGER not NULL, " +
-                     " title VARCHAR(255), " + 
-                     " day VARCHAR(255), " + 
-                     " starttime VARCHAR(255), " +
-                     " endtime VARCHAR(255), " +
-                     " barid INTEGER not NULL," +
-                     " FOREIGN KEY ( barid ) REFERENCES BAR(barid), " +
-                     " PRIMARY KEY ( specialid ))";
+                     "(SPECIALID INTEGER not NULL, " +
+                     " BARID INTEGER not NULL, " + 
+                     " DAY VARCHAR(255), " + 
+                     " END VARCHAR(255), " +
+                     " START VARCHAR(255), " +
+                     " TITLE VARCHAR(255)," +
+                     " FOREIGN KEY ( BARID ) REFERENCES BAR(BARID)," +
+                     " PRIMARY KEY ( SPECIALID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Special Table");
@@ -62,15 +62,13 @@ public class SetupDB {
         	System.out.println("Creating Item Table");
         	
         	sql = "CREATE TABLE IF NOT EXISTS ITEM " +
-                     "(itemid INTEGER not NULL, " +
-                     " name VARCHAR(255), " + 
-                     " type VARCHAR(255), " +
+                     "(ITEMID INTEGER not NULL, " +
+                     " MENUID INTEGER, " + 
+                     " NAME VARCHAR(255), " +
                      " price FLOAT, " +
-                     " menuid INTEGER, " + 
-                     " specialid INTEGER, " +
-                     " FOREIGN KEY ( menuid ) REFERENCES MENU(menuid)," +
-        			 " FOREIGN KEY ( specialid ) REFERENCES SPECIAL(specialid)," +
-                     " PRIMARY KEY ( itemid ))";
+                     " SPECIALID INTEGER, " + 
+                     " TYPE VARCHAR(255), " +
+                     " PRIMARY KEY ( ITEMID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Item Table");
@@ -78,16 +76,16 @@ public class SetupDB {
         	System.out.println("Creating Activity Table");
         	
         	sql = "CREATE TABLE IF NOT EXISTS ACTIVITY " +
-                     "(activityid INTEGER not NULL, " +
-                     " name VARCHAR(255), " + 
-                     " type VARCHAR(255), " +
-                     " day VARCHAR(255), " + 
-                     " starttime VARCHAR(255), " +
-                     " endtime VARCHAR(255), " +
-                     " cost FLOAT, " +
-                     " barid INTEGER not NULL, " +
-                     " FOREIGN KEY ( barid ) REFERENCES BAR(barid), " +
-                     " PRIMARY KEY ( activityid ))";
+                     "(ACTIVITYID INTEGER not NULL, " +
+                     " BARID INTEGER not NULL, " + 
+                     " COST FLOAT, " +
+                     " DAY VARCHAR(255), " + 
+                     " END VARCHAR(255), " +
+                     " NAME VARCHAR(255), " +
+                     " START VARCHAR(255), " +
+                     " TYPE VARCHAR(255), " +
+                     " FOREIGN KEY ( BARID ) REFERENCES BAR(BARID), " +
+                     " PRIMARY KEY ( ACTIVITYID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Activity Table");
@@ -96,10 +94,10 @@ public class SetupDB {
          	System.out.println("Creating Account Table");
          	
          	sql = "CREATE TABLE IF NOT EXISTS ACCOUNT " +
-                      "(userid INTEGER not NULL, " +
-                      " username VARCHAR(255), " + 
-                      " password VARCHAR(255), " +
-                      " PRIMARY KEY ( userid ))";
+                      "(USERID INTEGER not NULL, " +
+                      " PASSWORD VARCHAR(255), " + 
+                      " USERNAME VARCHAR(255), " +
+                      " PRIMARY KEY ( USERID ))";
          	 
          	 stmt.executeUpdate(sql);
          	 System.out.println("Created Account Table");
@@ -107,16 +105,16 @@ public class SetupDB {
         	//Create Comment table
         	System.out.println("Creating Rating Table");
         	
-        	sql = "CREATE TABLE  IF NOT EXISTS RATING " +
-                     "(ratingid INTEGER not NULL, " +
-                     " rating INTEGER, " +
-                     " comment VARCHAR(255), " + 
-                     " date VARCHAR(255), " +
-                     " userid INTEGER not NULL, " +
-                     " barid INTEGER not NULL, " + 
-                     " FOREIGN KEY ( barid ) REFERENCES BAR(barid), " +
-        			 " FOREIGN KEY ( userid ) REFERENCES ACCOUNT(userid), " +
-                     " PRIMARY KEY ( ratingid ))";
+        	sql = "CREATE TABLE IF NOT EXISTS RATING " +
+                     "(RATINGID INTEGER not NULL, " +
+                     " BARID INTEGER not NULL, " +
+                     " COMMENT VARCHAR(255), " + 
+                     " DATE VARCHAR(255), " +
+                     " RATING INTEGER, " +
+                     " USERID INTEGER not NULL, " + 
+                     " FOREIGN KEY ( BARID ) REFERENCES BAR(BARID), " +
+        			 " FOREIGN KEY ( USERID ) REFERENCES ACCOUNT(USERID), " +
+                     " PRIMARY KEY ( RATINGID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Rating Table");
@@ -125,15 +123,15 @@ public class SetupDB {
         	System.out.println("Creating Event Table");
         	
         	sql = "CREATE TABLE IF NOT EXISTS EVENT " +
-                     "(eventid INTEGER not NULL, " +
-                     " name VARCHAR(255), " + 
-                     " description VARCHAR(255), " +
-                     " date VARCHAR(255), " + 
-                     " starttime VARCHAR(255), " +
-                     " endtime VARCHAR(255), " +
-                     " barid INTEGER not null, " +
-                     " FOREIGN KEY ( barid ) REFERENCES BAR(barid), " +
-                     " PRIMARY KEY ( eventid ))";
+                     "(EVENTID INTEGER not NULL, " +
+                     " BARID INTEGER not null, " + 
+                     " DATE VARCHAR(255), " +
+                     " DESCRIPTION VARCHAR(255), " + 
+                     " END VARCHAR(255), " +
+                     " NAME VARCHAR(255), " +
+                     " START VARCHAR(255), " +
+                     " FOREIGN KEY ( BARID ) REFERENCES BAR(BARID), " +
+                     " PRIMARY KEY ( EVENTID ))";
         	 
         	 stmt.executeUpdate(sql);
         	 System.out.println("Created Event Table");

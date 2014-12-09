@@ -10,7 +10,7 @@ public class ItemGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
+        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -29,14 +29,14 @@ public class ItemGateway {
 		
 		if (item.getMenuid() > 0)
 		{
-			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", '" + item.getMenuid() + "', '" + item.getName() + "', " + item.getPrice() + ", " + "null" + ", '" + item.getType() + "')";
+			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", '" + item.getMenuid() + "', '" + item.getName() + "', " + item.getPrice() + ", " + -1 + ", '" + item.getType() + "')";
 			stmt.executeUpdate(sql);
 			item.setItemid(nextID);
 			nextID++;
 		}
 		else
 		{
-			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", " + "null" + ", '" + item.getName() + "', " + item.getPrice() + ", " + item.getSpecialid() + ", '" + item.getType() + "')";
+			String sql = "INSERT INTO ITEM VALUES (" + nextID + ", " + -1 + ", '" + item.getName() + "', " + item.getPrice() + ", " + item.getSpecialid() + ", '" + item.getType() + "')";
 			stmt.executeUpdate(sql);
 			item.setItemid(nextID);
 			nextID++;
@@ -50,13 +50,13 @@ public class ItemGateway {
 		
 		if (item.getMenuid() > 0)
 		{
-			sql = "INSERT INTO ITEM VALUES (" + item.getItemid() + ", '" + item.getMenuid() + "', '" + item.getName() + "', " + item.getPrice() + ", " + "null" + ", " + item.getType() + ")";
+			sql = "INSERT INTO ITEM VALUES (" + item.getItemid() + ", '" + item.getMenuid() + "', '" + item.getName() + "', " + item.getPrice() + ", " + -1 + ", " + item.getType() + ")";
 			stmt.executeUpdate(sql);
 			nextID++;
 		}
 		else
 		{
-			sql = "INSERT INTO ITEM VALUES (" + item.getItemid() + ", '" + "null" + "', '" + item.getName() + "', " + item.getPrice() + ", " + item.getSpecialid() + ", " + item.getType() + ")";
+			sql = "INSERT INTO ITEM VALUES (" + item.getItemid() + ", '" + -1 + "', '" + item.getName() + "', " + item.getPrice() + ", " + item.getSpecialid() + ", '" + item.getType() + "')";
 			stmt.executeUpdate(sql);
 			nextID++;
 		}

@@ -10,7 +10,7 @@ public class EventGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
+        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
@@ -38,7 +38,7 @@ public class EventGateway {
 		String sql = "DELETE FROM EVENT WHERE EVENTID = " + event.getEventid();
 		stmt.executeUpdate(sql);
 
-		sql = "INSERT INTO EVENT VALUES (" + event.getEventid() + ", '" + event.getBarid() + "', '" + event.getDate() + "', '" + event.getDescription() + "', '" + event.getEnd() + "', '" + event.getName() + "', " + event.getStart() + ")";
+		sql = "INSERT INTO EVENT VALUES (" + event.getEventid() + ", '" + event.getBarid() + "', '" + event.getDate() + "', '" + event.getDescription() + "', '" + event.getEnd() + "', '" + event.getName() + "', '" + event.getStart() + "')";
 		stmt.executeUpdate(sql);
 	}
 	

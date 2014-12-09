@@ -10,7 +10,7 @@ public class BarGateway {
 		try{
 			//connect to h2 DB
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/examples-769-EJB", "sa", "");
+        	conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
 			stmt = conn.createStatement();
     	
 			//Find the number of rows in the table
